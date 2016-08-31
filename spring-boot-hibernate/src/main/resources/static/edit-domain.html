@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Edit Domain</title>
+<script type="text/javascript" src="ext5/ext-all-debug.js"></script>
+<link rel="stylesheet" type="text/css" href="ext5/ext-all.css">
+
+</head>
+<body>
+	<h1>This page helps you edit domain objects</h1>
+	<script type="text/javascript">
+Ext.onReady(function() {
+	
+	var remoteJsonStore =  Ext.create('Ext.data.Store', {
+        fields: ['firstName','lastName','address','occupation','sex'],
+        proxy: {
+            type: 'ajax',
+            url: 'getData',
+            reader: {
+                type: 'json',
+                rootProperty: 'records'
+            }
+        },
+        autoLoad: true
+    });
+	
+	var columnModel = [
+	           		{
+	           		    header    : 'First Name',
+	           		    dataIndex : 'firstName',
+	           		    sortable  : true, flex : 1
+	           		    
+	           		},
+	                   {
+	                       header    : 'Last Name',
+	                       dataIndex : 'lastName',
+	                       sortable  : true, flex : 1
+	                       
+	                   },
+	                   
+	                   {
+	                       header    : 'Street Address New',
+	                       dataIndex : 'address',
+	                       sortable  : true, flex : 1
+	                       
+	                   },
+	                   {
+	                       header    : 'Occupation',
+	                       dataIndex : 'occupation',
+	                       sortable  : true, flex : 1
+	                       
+	                   },
+	                   {
+	                       header    : 'Gender',
+	                       dataIndex : 'sex',
+	                       sortable  : true, flex : 1
+	                   }
+	               ];
+	Ext.create('Ext.grid.Panel', {
+        title: 'User Data',
+        store: remoteJsonStore,
+        columns: columnModel,
+        height:500,
+        width: '50%',
+        renderTo: Ext.getBody()
+    });
+});
+</script>
+</body>
+</html>

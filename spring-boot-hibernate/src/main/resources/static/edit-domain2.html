@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Edit Domain</title>
+<script type="text/javascript" src="ext5/ext-all-debug.js"></script>
+<link rel="stylesheet" type="text/css" href="ext5/ext-all.css">
+
+</head>
+<body>
+	<h1>This page helps you edit domain objects</h1>
+	<script type="text/javascript">
+	Ext.require([
+	             'Ext.grid.*',
+	             'Ext.data.*',
+	             'Ext.util.*',
+	             'Ext.state.*',
+	             'Ext.form.*'
+	         ]);
+Ext.onReady(function() {
+	
+	Ext.define('User', {
+        extend: 'Ext.data.Model',
+        fields: ['firstName','lastName','address','occupation','sex']
+    });
+	
+	// create the Data Store
+    var store = Ext.create('Ext.data.Store', {
+        // destroy the store if the grid is destroyed
+        autoDestroy: true,
+        model: 'User',
+        proxy: {
+            type: 'ajax',
+            url: 'getData',
+            reader: {
+                type: 'json',
+                rootProperty: 'records'
+            }
+        },
+        autoLoad: true,
+        sorters: [{
+            property: 'start',
+            direction: 'DESC'
+        }]
+    });
+    var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+        clicksToMoveEditor: 1,
+        autoCancel: false
+    });
+    var columnModel = [
+   	           		{
+   	           		    header    : 'First Name',
+   	           		    dataIndex : 'firstName',
+   	           		    sortable  : true, flex : 1,
+   	           		editor: {
+   	                 // defaults to textfield if no xtype is supplied
+   	                 allowBlank: false
+   	             }
+   	           		    
+   	           		},
+   	                   {
+   	                       header    : 'Last Name',
+   	                       dataIndex : 'lastName',
+   	                       sortable  : true, flex : 1,
+   	                    editor: {
+   	                     // defaults to textfield if no xtype is supplied
+   	                     allowBlank: false
+   	                 }
+   	                       
+   	                   },
+   	                   
+   	                   {
+   	                       header    : 'Street Address New',
+   	                       dataIndex : 'address',
+   	                       sortable  : true, flex : 1,
+   	                    editor: {
+   	                     // defaults to textfield if no xtype is supplied
+   	                     allowBlank: false
+   	                 }
+   	                       
+   	                   },
+   	                   {
+   	                       header    : 'Occupation',
+   	                       dataIndex : 'occupation',
+   	                       sortable  : true, flex : 1,
+   	                    editor: {
+   	                     // defaults to textfield if no xtype is supplied
+   	                     allowBlank: false
+   	                 }
+   	                       
+   	                   },
+   	                   {
+   	                       header    : 'Gender',
+   	                       dataIndex : 'sex',
+   	                       sortable  : true, flex : 1,
+   	                    editor: {
+   	                     // defaults to textfield if no xtype is supplied
+   	                     allowBlank: false
+   	                 }
+   	                   }
+   	               ];
+    var grid = Ext.create('Ext.grid.Panel', {
+        store: store,
+        columns:columnModel,
+        plugins: [rowEditing],
+        height:500,
+        width: '50%',
+        renderTo: Ext.getBody()
+    });
+	
+});
+</script>
+</body>
+</html>

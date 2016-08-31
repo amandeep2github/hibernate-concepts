@@ -1,0 +1,11 @@
+{  
+   "records":[  
+      {  
+         "firstName":"Amandeep",
+         "lastName":"Singh",
+         "address":"858, Sector 22B",
+         "occupation":"IT Consultant",
+         "sex":"M"
+      }
+   ]
+}
